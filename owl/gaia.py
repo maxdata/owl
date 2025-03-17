@@ -27,7 +27,7 @@ from camel.benchmarks import BaseBenchmark
 from camel.tasks import Task
 from camel.logger import get_logger
 
-from .common import extract_pattern
+from ..common import extract_pattern
 from .enhanced_role_playing import run_society, OwlGAIARolePlaying
 
 logger = get_logger(__name__)
