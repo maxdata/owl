@@ -155,148 +155,38 @@ https://private-user-images.githubusercontent.com/55657767/420212194-e813fc05-13
 
 # 🛠️ Installation
 
-OWL supports multiple installation methods to fit your workflow preferences. Choose the option that works best for you.
-
-## Option 1: Using uv (Recommended)
-
-```bash
-# Clone github repo
-git clone https://github.com/camel-ai/owl.git
-
-# Change directory into project directory
-cd owl
-
-# Install uv if you don't have it already
-pip install uv
-
-# Create a virtual environment and install dependencies
-# We support using Python 3.10, 3.11, 3.12
-uv venv .venv --python=3.10
-
-# Activate the virtual environment
-# For macOS/Linux
-source .venv/bin/activate
-# For Windows
-.venv\Scripts\activate
-
-# Install CAMEL with all dependencies
-uv pip install -e .
-
-# Exit the virtual environment when done
-deactivate
-```
-
-## Option 2: Using venv and pip
-
-```bash
-# Clone github repo
-git clone https://github.com/camel-ai/owl.git
-
-# Change directory into project directory
-cd owl
-
-# Create a virtual environment
-# For Python 3.10 (also works with 3.11, 3.12)
-python3.10 -m venv .venv
-
-# Activate the virtual environment
-# For macOS/Linux
-source .venv/bin/activate
-# For Windows
-.venv\Scripts\activate
-
-# Install from requirements.txt
-pip install -r requirements.txt --use-pep517
-```
-
-## Option 3: Using conda
-
-```bash
-# Clone github repo
-git clone https://github.com/camel-ai/owl.git
-
-# Change directory into project directory
-cd owl
-
-# Create a conda environment
-conda create -n owl python=3.10
-
-# Activate the conda environment
-conda activate owl
-
-# Option 1: Install as a package (recommended)
-pip install -e .
-
-# Option 2: Install from requirements.txt
-pip install -r requirements.txt --use-pep517
-
-# Exit the conda environment when done
-conda deactivate
-```
-
-## **Setup Environment Variables**
-
-OWL requires various API keys to interact with different services. The `owl/.env_template` file contains placeholders for all necessary API keys along with links to the services where you can register for them.
-
-### Option 1: Using a `.env` File (Recommended)
-
-1. **Copy and Rename the Template**:
-   ```bash
-   cd owl
-   cp .env_template .env
-   ```
-
-2. **Configure Your API Keys**:
-   Open the `.env` file in your preferred text editor and insert your API keys in the corresponding fields.
-   
-   > **Note**: For the minimal example (`examples/run_mini.py`), you only need to configure the LLM API key (e.g., `OPENAI_API_KEY`).
-
-### Option 2: Setting Environment Variables Directly
-
-Alternatively, you can set environment variables directly in your terminal:
-
-- **macOS/Linux (Bash/Zsh)**:
-  ```bash
-  export OPENAI_API_KEY="your-openai-api-key-here"
-  ```
-
-- **Windows (Command Prompt)**:
-  ```batch
-  set OPENAI_API_KEY="your-openai-api-key-here"
-  ```
-
-- **Windows (PowerShell)**:
-  ```powershell
-  $env:OPENAI_API_KEY = "your-openai-api-key-here"
-  ```
-
-> **Note**: Environment variables set directly in the terminal will only persist for the current session.
-
-
-
-## **Running with Docker**
-
-OWL can be easily deployed using Docker, which provides a consistent environment across different platforms.
-
-### **Setup Instructions**
+## Quick Start Installation
 
 ```bash
 # Clone the repository
 git clone https://github.com/camel-ai/owl.git
 cd owl
 
-# Configure environment variables
-cp owl/.env_template owl/.env
-# Edit the .env file and fill in your API keys
+# Install dependencies
+pip install uv
+uv sync
 ```
 
-### **Deployment Options**
+## Set up API Key
+1. Copy the environment template:
+```bash
+cp .env_template .env
+```
 
-#### **Option 1: Using Pre-built Image (Recommended)**
+
+That's it! You can now run the minimal example:
+```bash
+python examples/run_mini.py
+```
+
+Note: For advanced features (web browsing, image analysis, etc.), additional API keys can be added to your `.env` file as needed.
+
+## Docker Installation (Optional)
+
+If you prefer using Docker:
 
 ```bash
-# This option downloads a ready-to-use image from Docker Hub
-# Fastest and recommended for most users
+# Pull and run the pre-built image
 docker-compose up -d
 
 # Run OWL inside the container
@@ -306,46 +196,7 @@ playwright install-deps
 xvfb-python examples/run.py
 ```
 
-#### **Option 2: Building Image Locally**
-
-```bash
-# For users who need to customize the Docker image or cannot access Docker Hub:
-# 1. Open docker-compose.yml
-# 2. Comment out the "image: mugglejinx/owl:latest" line
-# 3. Uncomment the "build:" section and its nested properties
-# 4. Then run:
-docker-compose up -d --build
-
-# Run OWL inside the container
-docker-compose exec owl bash
-cd .. && source .venv/bin/activate
-playwright install-deps
-xvfb-python examples/run.py
-```
-
-#### **Option 3: Using Convenience Scripts**
-
-```bash
-# Navigate to container directory
-cd .container
-
-# Make the script executable and build the Docker image
-chmod +x build_docker.sh
-./build_docker.sh
-
-# Run OWL with your question
-./run_in_docker.sh "your question"
-```
-
-### **MCP Desktop Commander Setup**
-
-If using MCP Desktop Commander within Docker, run:
-
-```bash
-npx -y @wonderwhy-er/desktop-commander setup --force-file-protocol
-```
-
-For more detailed Docker usage instructions, including cross-platform support, optimized configurations, and troubleshooting, please refer to [DOCKER_README.md](.container/DOCKER_README_en.md).
+For detailed Docker instructions, see [DOCKER_README.md](.container/DOCKER_README_en.md).
 
 # 🚀 Quick Start
 
